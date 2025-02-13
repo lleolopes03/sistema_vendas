@@ -18,12 +18,6 @@ public class DataSourceConfig {
         String username = dotenv.get("DB_USERNAME");
         String password = dotenv.get("DB_PASSWORD");
         String url = dotenv.get("DB_URL");
-
-        // Adicione logs para verificar as variáveis
-        System.out.println("DB_USERNAME: " + username);
-        System.out.println("DB_PASSWORD: " + password);
-        System.out.println("DB_URL: " + url);
-
         return DataSourceBuilder.create()
                 .username(username)
                 .password(password)

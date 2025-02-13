@@ -48,10 +48,10 @@ public class UsuarioService {
     public void editarSenha(Long id, UsuarioSenhaDto senhaDto){
         Usuario usuario=usuarioRepository.findById(id).orElseThrow(()->new BusinessException("Id não encontrado"));
         if (!passwordEncoder.matches(senhaDto.getSenhaAtual(), usuario.getPassword())){
-            throw new BusinessException("Sua nova senha não confere com senha de confirmação");
+            throw new BusinessException("Sua senha não confere com senha atual");
         }
         if (!senhaDto.getNovaSenha().equals(senhaDto.getConfirmaSenha())){
-            throw new BusinessException("Sua nova senha não confere");
+            throw new BusinessException("Sua nova senha não confere com senha de confirmação");
         }
         usuario.setPassword(passwordEncoder.encode(senhaDto.getNovaSenha()));
         usuarioRepository.save(usuario);

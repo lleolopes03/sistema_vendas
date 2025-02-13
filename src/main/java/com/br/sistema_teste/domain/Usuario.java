@@ -27,6 +27,14 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
+    public Usuario(Long id, String username, String email, int age, String password) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.age = age;
+        this.password = password;
+    }
+
     public Long getId() {
         return id;
     }
@@ -66,6 +74,7 @@ public class Usuario implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     @Override
     public boolean equals(Object o) {

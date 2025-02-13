@@ -11,6 +11,10 @@ import java.util.stream.Collectors;
 
 public class UsuarioMapper {
     public static Usuario toUsuario(UsuarioCreateDto createDto){
+        if (createDto == null) {
+            throw new IllegalArgumentException("CreateDto cannot be null");
+        }
+        System.out.println("Mapping UsuarioCreateDto: " + createDto);
         return new ModelMapper().map(createDto, Usuario.class);
     }
     public static UsuarioResponseDto toDto(Usuario usuario){
