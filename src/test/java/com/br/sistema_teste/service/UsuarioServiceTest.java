@@ -49,6 +49,7 @@ class UsuarioServiceTest {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
+
         @Test
     @DisplayName("Criar um novo usuario")
     public void teste_criar_novo_usuario(){

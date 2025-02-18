@@ -7,6 +7,8 @@ import com.br.sistema_teste.dto.UsuarioSenhaDto;
 import com.br.sistema_teste.dto.mapper.UsuarioMapper;
 import com.br.sistema_teste.infra.exceptions.BusinessException;
 import com.br.sistema_teste.repositories.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -53,10 +55,24 @@ public class UsuarioService {
         if (!senhaDto.getNovaSenha().equals(senhaDto.getConfirmaSenha())){
             throw new BusinessException("Sua nova senha não confere com senha de confirmação");
         }
+        
+        if(senhaDto.getSenhaAtual().equals(senhaDto.getNovaSenha())){
+            throw new BusinessException("Sua nova senha tem que ser diferente da senha antiga");
+        }
         usuario.setPassword(passwordEncoder.encode(senhaDto.getNovaSenha()));
         usuarioRepository.save(usuario);
 
 
+    }
+    @Transactional
+    public Usuario buscarPorUsername(String username){
+        return usuarioRepository.findByUsername(username).orElseThrow(
+                ()->new EntityNotFoundException(String.format("Usuario com 'username' não encontrado",username))
+        );
+    }
+    @Transactional
+    public Usuario.Role buscarRolePorUsername(String username) {
+        return usuarioRepository.findRoleByUsername(username);
     }
 
 }

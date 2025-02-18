@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class UsuarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",description = "cadastrado com sucesso")
     })
+
     @PostMapping
     public ResponseEntity<UsuarioResponseDto>create(@Valid @RequestBody UsuarioCreateDto createDto){
        UsuarioResponseDto responseDto=usuarioService.salvar(createDto);
@@ -37,6 +39,7 @@ public class UsuarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Busca do usuario com sucesso")
     })
+    @PreAuthorize("hasRole('ADMIN')OR(hasRole('CAIXA')AND #id==authentication.principal.id)")
    @GetMapping("/{id}")
     public ResponseEntity<UsuarioResponseDto>findById(@PathVariable Long id){
        UsuarioResponseDto responseDto=usuarioService.buscarPorId(id);
@@ -46,7 +49,9 @@ public class UsuarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Lista de clientes ok")
     })
+
    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UsuarioResponseDto>>findAll(){
        List<UsuarioResponseDto>responseDtos=usuarioService.buscarTodos();
        return ResponseEntity.ok(responseDtos);
@@ -55,6 +60,7 @@ public class UsuarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",description = "Deletado com sucesso")
     })
+    @PreAuthorize("hasRole('ADMIN')")
    @DeleteMapping("/{id}")
     public ResponseEntity<Void>deletar(@PathVariable Long id){
        usuarioService.delete(id);
@@ -64,6 +70,7 @@ public class UsuarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",description = "Senha alterado com sucesso")
     })
+    @PreAuthorize("hasRole('ADMIN','CLIENTE')AND(#id==authentication.principal.id)")
    @PutMapping("/{id}/password")
     public ResponseEntity<Void>editarSenha(@PathVariable Long id, @RequestBody UsuarioSenhaDto senhaDto){
        usuarioService.editarSenha(id,senhaDto);

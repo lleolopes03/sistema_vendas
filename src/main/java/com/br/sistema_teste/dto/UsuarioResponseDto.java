@@ -5,15 +5,17 @@ public class UsuarioResponseDto {
     private String username;
     private String email;
     private int age;
+    private String role;
 
     public UsuarioResponseDto() {
     }
 
-    public UsuarioResponseDto(Long id, String username, String email, int age) {
+    public UsuarioResponseDto(Long id, String username, String email, int age, String role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.age = age;
+        this.role = role;
     }
 
     public Long getId() {
@@ -32,14 +34,6 @@ public class UsuarioResponseDto {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public int getAge() {
         return age;
     }
@@ -48,13 +42,19 @@ public class UsuarioResponseDto {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "UsuarioResponseDto{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                '}';
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

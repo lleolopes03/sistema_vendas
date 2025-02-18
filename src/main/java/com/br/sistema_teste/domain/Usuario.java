@@ -23,16 +23,22 @@ public class Usuario implements Serializable {
     private int age;
     @Column(nullable = false)
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.ROLE_CAIXA;
+    public enum Role{
+        ROLE_ADMIN,ROLE_CAIXA;
+    }
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String username, String email, int age, String password) {
+    public Usuario(Long id, String username, String email, int age, String password, Role role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.age = age;
         this.password = password;
+        this.role = role;
     }
 
     public Long getId() {
@@ -75,6 +81,13 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -85,5 +98,12 @@ public class Usuario implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                '}';
     }
 }
