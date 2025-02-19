@@ -39,8 +39,9 @@ public class UsuarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Busca do usuario com sucesso")
     })
-    @PreAuthorize("hasRole('ADMIN')OR(hasRole('CAIXA')AND #id==authentication.principal.id)")
+
    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')OR(hasRole('CAIXA')AND #id==authentication.principal.id)")
     public ResponseEntity<UsuarioResponseDto>findById(@PathVariable Long id){
        UsuarioResponseDto responseDto=usuarioService.buscarPorId(id);
        return ResponseEntity.ok(responseDto);
@@ -60,8 +61,9 @@ public class UsuarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",description = "Deletado com sucesso")
     })
-    @PreAuthorize("hasRole('ADMIN')")
+
    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void>deletar(@PathVariable Long id){
        usuarioService.delete(id);
        return ResponseEntity.noContent().build();
@@ -70,8 +72,9 @@ public class UsuarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",description = "Senha alterado com sucesso")
     })
-    @PreAuthorize("hasRole('ADMIN','CLIENTE')AND(#id==authentication.principal.id)")
+
    @PutMapping("/{id}/password")
+    @PreAuthorize("hasRole('ADMIN','CAIXA')AND(#id==authentication.principal.id)")
     public ResponseEntity<Void>editarSenha(@PathVariable Long id, @RequestBody UsuarioSenhaDto senhaDto){
        usuarioService.editarSenha(id,senhaDto);
        return ResponseEntity.noContent().build();
