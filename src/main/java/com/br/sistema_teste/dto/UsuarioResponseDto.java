@@ -1,16 +1,20 @@
 package com.br.sistema_teste.dto;
 
+import com.br.sistema_teste.domain.Usuario;
+
+
+
 public class UsuarioResponseDto {
     private Long id;
     private String username;
     private String email;
     private int age;
-    private String role;
+    private Usuario.Role role = Usuario.Role.ROLE_CAIXA;
 
     public UsuarioResponseDto() {
     }
 
-    public UsuarioResponseDto(Long id, String username, String email, int age, String role) {
+    public UsuarioResponseDto(Long id, String username, String email, int age, Usuario.Role role) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -34,14 +38,6 @@ public class UsuarioResponseDto {
         this.username = username;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -50,11 +46,30 @@ public class UsuarioResponseDto {
         this.email = email;
     }
 
-    public String getRole() {
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Usuario.Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Usuario.Role role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioResponseDto{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", role=" + role +
+                '}';
     }
 }

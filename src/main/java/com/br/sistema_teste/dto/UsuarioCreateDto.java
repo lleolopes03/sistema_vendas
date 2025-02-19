@@ -11,6 +11,7 @@ public class UsuarioCreateDto {
     @NotBlank
     @Email(message = "formato do e-mail está inválido",regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")
     private String email;
+    @NotBlank
     private int age;
     @NotBlank
     private String password;

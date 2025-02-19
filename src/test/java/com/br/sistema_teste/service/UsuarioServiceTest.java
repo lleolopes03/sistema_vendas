@@ -20,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -44,20 +45,21 @@ class UsuarioServiceTest {
 
     private ModelMapper modelMapper = new ModelMapper();
     private Validator validator;
+
     @BeforeEach
     public void setUp() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
 
-        @Test
+    @Test
     @DisplayName("Criar um novo usuario")
     public void teste_criar_novo_usuario(){
        UsuarioCreateDto createDto = new UsuarioCreateDto("leandro", "leandro@email.com", 30, "123456");
        Usuario usuario = modelMapper.map(createDto, Usuario.class);
        usuario.setPassword("senhaCodificada");
-       Usuario usuarioSalvar = new Usuario(1L, "leandro", "leandro@email.com",30, "senhaCodificada");
-       UsuarioResponseDto responseDto = new UsuarioResponseDto(1L, "leandro", "leandro@email.com",30);
+       Usuario usuarioSalvar = new Usuario(1L, "leandro", "leandro@email.com",30, "senhaCodificada", Usuario.Role.ROLE_CAIXA);
+       UsuarioResponseDto responseDto = new UsuarioResponseDto(1L, "leandro", "leandro@email.com",30, Usuario.Role.ROLE_CAIXA);
 
        // Garanta que o createDto não é nulo
        assertNotNull(createDto);
@@ -106,7 +108,7 @@ class UsuarioServiceTest {
 
         Usuario usuario = modelMapper.map(createUserDTO, Usuario.class);
         usuario.setPassword("senhaCodificada");
-        Usuario savedUsuario = new Usuario(1L, "Nome", "email@example.com",30, "senhaCodificada");
+        Usuario savedUsuario = new Usuario(1L, "Nome", "email@example.com",30, "senhaCodificada",Usuario.Role.ROLE_CAIXA);
 
         when(passwordEncoder.encode(any(CharSequence.class))).thenReturn("senhaCodificada");
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(savedUsuario);
@@ -138,8 +140,8 @@ class UsuarioServiceTest {
     public void testBuscarUsuarioPorIdComSucesso() {
         // Arrange
         Long usuarioId = 1L;
-        Usuario usuario = new Usuario(usuarioId, "leandro", "leandro@email.com",30, "senhaCodificada");
-        UsuarioResponseDto responseDto = new UsuarioResponseDto(usuarioId, "leandro", "leandro@email.com",30);
+        Usuario usuario = new Usuario(usuarioId, "leandro", "leandro@email.com",30, "senhaCodificada",Usuario.Role.ROLE_CAIXA);
+        UsuarioResponseDto responseDto = new UsuarioResponseDto(usuarioId, "leandro", "leandro@email.com",30,Usuario.Role.ROLE_CAIXA);
 
 
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuario));
@@ -176,8 +178,8 @@ class UsuarioServiceTest {
     public void testBuscarTodosUsuariosComSucesso() {
         // Arrange
         List<Usuario> usuarios = Arrays.asList(
-                new Usuario(1L, "Nome1", "email1@example.com",30, "senhaCodificada"),
-                new Usuario(2L, "Nome2", "email2@example.com",30, "senhaCodificada")
+                new Usuario(1L, "Nome1", "email1@example.com",30, "senhaCodificada",Usuario.Role.ROLE_CAIXA),
+                new Usuario(2L, "Nome2", "email2@example.com",30, "senhaCodificada",Usuario.Role.ROLE_CAIXA)
         );
 
         when(usuarioRepository.findAll()).thenReturn(usuarios);
@@ -198,7 +200,7 @@ class UsuarioServiceTest {
     public void testEditarSenhaComSucesso() {
         // Arrange
         Long usuarioId = 1L;
-        Usuario usuario = new Usuario(usuarioId, "Nome", "email@example.com",30, "senhaAntigaCodificada");
+        Usuario usuario = new Usuario(usuarioId, "Nome", "email@example.com",30, "senhaAntigaCodificada",Usuario.Role.ROLE_CAIXA);
         UsuarioSenhaDto senhaDto = new UsuarioSenhaDto("senhaAtual", "novaSenha", "novaSenha");
 
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuario));
@@ -234,7 +236,7 @@ class UsuarioServiceTest {
     public void testEditarSenhaSenhaAtualInvalida() {
         // Arrange
         Long usuarioId = 1L;
-        Usuario usuario = new Usuario(usuarioId, "leandro", "leandro@email.com",30, "senhaAntigaCodificada");
+        Usuario usuario = new Usuario(usuarioId, "leandro", "leandro@email.com",30, "senhaAntigaCodificada",Usuario.Role.ROLE_CAIXA);
         UsuarioSenhaDto senhaDto = new UsuarioSenhaDto("senhaAtual", "novaSenha", "novaSenha");
 
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuario));
@@ -253,7 +255,7 @@ class UsuarioServiceTest {
     public void testEditarSenhaNovaSenhaInvalida() {
         // Arrange
         Long usuarioId = 1L;
-        Usuario usuario = new Usuario(usuarioId, "leandro", "leandro@email.com",30, "senhaAntigaCodificada");
+        Usuario usuario = new Usuario(usuarioId, "leandro", "leandro@email.com",30, "senhaAntigaCodificada",Usuario.Role.ROLE_CAIXA);
         UsuarioSenhaDto senhaDto = new UsuarioSenhaDto("senhaAtual", "novaSenha", "confirmaSenhaDiferente");
 
         when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuario));
