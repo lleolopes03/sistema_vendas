@@ -30,7 +30,7 @@ public class ClienteService {
     }
     public ClienteResponseDto buscarPorId(Long id){
         Cliente cliente=clienteRepository.findById(id).orElseThrow(
-                ()->new BusinessException("Cliente com id: %s não encontrado"+id)
+                ()->new BusinessException(String.format("Cliente com id: %s não encontrado",id))
         );
         return ClienteMapper.toDto(cliente);
     }
@@ -51,7 +51,7 @@ public class ClienteService {
             cliente=clienteRepository.save(clienteAtualizado);
             return ClienteMapper.toDto(cliente);
         }else {
-            throw new BusinessException("Cliente não encontrado com o id: "+id);
+            throw new BusinessException(String.format("Cliente não encontrado com o id: ",id));
         }
     }
 

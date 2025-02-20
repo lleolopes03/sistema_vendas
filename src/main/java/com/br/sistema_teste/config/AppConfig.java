@@ -1,4 +1,4 @@
-package com.br.sistema_teste;
+package com.br.sistema_teste.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
