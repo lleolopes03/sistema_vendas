@@ -26,7 +26,7 @@ public class ProdutoService {
     }
     public ProdutoResponseDto buscarProId(Long id){
         Produtos produtos=produtoRepository.findById(id).orElseThrow(
-                ()->new BusinessException("Produto com id: %s não encontrado"+id)
+                ()->new BusinessException(String.format("Produto com id: %s não encontrado",id))
         );
         return ProdutoMapper.toDto(produtos);
     }
