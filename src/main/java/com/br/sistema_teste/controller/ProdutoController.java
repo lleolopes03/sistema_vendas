@@ -2,7 +2,6 @@ package com.br.sistema_teste.controller;
 
 import com.br.sistema_teste.dto.ProdutoCreateDto;
 import com.br.sistema_teste.dto.ProdutoResponseDto;
-import com.br.sistema_teste.service.NcmService;
 import com.br.sistema_teste.service.ProdutoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,8 +20,7 @@ import java.util.List;
 public class ProdutoController {
     @Autowired
     public ProdutoService produtoService;
-    @Autowired
-    private NcmService ncmService;
+
 
     @Operation(summary = "Cadastro de produtos",description = "Cadastro de produtos")
     @ApiResponses(value = {
@@ -76,11 +74,5 @@ public class ProdutoController {
         return ResponseEntity.ok(responseDto);
     }
 
-    @PutMapping("/produtos/{id}/atualizar-ncm")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ProdutoResponseDto atualizarNcm(@PathVariable Long id,@RequestParam String descricaoProduto) {
-        return ncmService.atualizarNcm(id, descricaoProduto);
+
     }
-
-
-}

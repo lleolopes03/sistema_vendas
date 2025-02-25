@@ -19,39 +19,42 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
 
-    public ProdutoResponseDto salvar(ProdutoCreateDto createDto){
-        Produtos produtos= ProdutoMapper.toProduto(createDto);
-        Produtos produtos1=produtoRepository.save(produtos);
+    public ProdutoResponseDto salvar(ProdutoCreateDto createDto) {
+        Produtos produtos = ProdutoMapper.toProduto(createDto);
+        Produtos produtos1 = produtoRepository.save(produtos);
         return ProdutoMapper.toDto(produtos1);
     }
-    public ProdutoResponseDto buscarProId(Long id){
-        Produtos produtos=produtoRepository.findById(id).orElseThrow(
-                ()->new BusinessException(String.format("Produto com id: %s não encontrado",id))
+
+    public ProdutoResponseDto buscarProId(Long id) {
+        Produtos produtos = produtoRepository.findById(id).orElseThrow(
+                () -> new BusinessException(String.format("Produto com id: %s não encontrado", id))
         );
         return ProdutoMapper.toDto(produtos);
     }
-    public List<ProdutoResponseDto>buscarTodos(){
-        List<Produtos>produtos=produtoRepository.findAll();
+
+    public List<ProdutoResponseDto> buscarTodos() {
+        List<Produtos> produtos = produtoRepository.findAll();
         return ProdutoMapper.toListDto(produtos);
     }
-    public void deletar(Long id){
+
+    public void deletar(Long id) {
         produtoRepository.deleteById(id);
 
     }
-    public ProdutoResponseDto editarProduto(Long id,ProdutoCreateDto createDto){
-        Optional<Produtos>produtosOptional=produtoRepository.findById(id);
-        if (produtosOptional.isPresent()){
-            Produtos produtos=produtosOptional.get();
-            Produtos produtosAtualizado=ProdutoMapper.toProduto(createDto);
+
+    public ProdutoResponseDto editarProduto(Long id, ProdutoCreateDto createDto) {
+        Optional<Produtos> produtosOptional = produtoRepository.findById(id);
+        if (produtosOptional.isPresent()) {
+            Produtos produtos = produtosOptional.get();
+            Produtos produtosAtualizado = ProdutoMapper.toProduto(createDto);
             produtosAtualizado.setId(produtos.getId());
-            produtos=produtoRepository.save(produtosAtualizado);
+            produtos = produtoRepository.save(produtosAtualizado);
             return ProdutoMapper.toDto(produtos);
 
-        }else {
-            throw new BusinessException(String.format("Produto com Id: %s não encontrado",id));
+        } else {
+            throw new BusinessException(String.format("Produto com Id: %s não encontrado", id));
         }
     }
-
 
 
 }
