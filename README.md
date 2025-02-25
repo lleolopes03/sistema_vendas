@@ -16,4 +16,5 @@ IREI CRIAR UM SISTEMA DE VENDAS, CADASTRO DE USUARIOS,CLIENTES,PRODUTOS,BAIXA NO
 -TESTE UNITARIOS JUNIT 5 E MOCKITO
 
 
-OBS: A CADA NOVA ETAPA FEITA E FEITO O COMMIT IREI ATUALIZANDO AQUI.
+OBS: Projeto até o momento tem a funcionalidade CRUD de usuario,funcionario,cliente,produto, sistema de venda.
+Projeto está com autenticação JWTBearer onde algumas funcionalidades são especificas apenas para o administrador.
