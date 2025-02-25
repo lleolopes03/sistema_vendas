@@ -1,7 +1,11 @@
 package com.br.sistema_teste.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +17,7 @@ public class Funcionario {
     private String nome;
     private String email;
     private String telefone;
+
 
     public Funcionario() {
     }

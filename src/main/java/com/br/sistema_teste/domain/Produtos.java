@@ -2,6 +2,7 @@ package com.br.sistema_teste.domain;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 
@@ -14,12 +15,12 @@ public class Produtos {
     private String nome;
     private String descricao;
     private String ncm;
-    private double preco;
+    private BigDecimal preco;
 
     public Produtos() {
     }
 
-    public Produtos(Long id, String nome, String descricao, String ncm, double preco) {
+    public Produtos(Long id, String nome, String descricao, String ncm, BigDecimal preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -43,14 +44,6 @@ public class Produtos {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public String getNcm() {
         return ncm;
     }
@@ -59,11 +52,19 @@ public class Produtos {
         this.ncm = ncm;
     }
 
-    public double getPreco() {
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

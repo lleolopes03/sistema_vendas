@@ -10,7 +10,7 @@ public class ClienteCreateDto {
     private String nome;
     @NotBlank
     private String email;
-    @NotBlank
+
     private int idade;
     @Size(min = 11,max = 11)
     @CPF
