@@ -18,3 +18,4 @@ IREI CRIAR UM SISTEMA DE VENDAS, CADASTRO DE USUARIOS,CLIENTES,PRODUTOS,BAIXA NO
 
 OBS: Projeto até o momento tem a funcionalidade CRUD de usuario,funcionario,cliente,produto, sistema de venda.
 Projeto está com autenticação JWTBearer onde algumas funcionalidades são especificas apenas para o administrador.
+Todos os testes unitarios estão prontos.
