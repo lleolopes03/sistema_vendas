@@ -98,6 +98,7 @@ class UsuarioServiceTest {
         assertEquals("Idade minima para cadastro 18 anos", thrown.getMessage());
     }
     @Test
+    @DisplayName("Teste salvar usuario com email valido")
     public void testSalvarUsuarioComEmailValido() {
         // Arrange
         UsuarioCreateDto createUserDTO = new UsuarioCreateDto("Nome", "email@example.com", 30, "123456");
@@ -124,6 +125,7 @@ class UsuarioServiceTest {
     }
 
     @Test
+    @DisplayName("Teste salvar usuario com email invalido")
     public void testSalvarUsuarioComEmailInvalido() {
         // Arrange
         UsuarioCreateDto createUserDTO = new UsuarioCreateDto("Nome", "email_invalido", 30, "123456");
@@ -197,6 +199,7 @@ class UsuarioServiceTest {
     }
 
     @Test
+    @DisplayName("Teste editar senha ")
     public void testEditarSenhaComSucesso() {
         // Arrange
         Long usuarioId = 1L;
@@ -216,6 +219,7 @@ class UsuarioServiceTest {
     }
 
     @Test
+    @DisplayName("Teste editar usuario com id nao encontrado")
     public void testEditarSenhaIdNaoEncontrado() {
         // Arrange
         Long usuarioId = 1L;
@@ -233,6 +237,7 @@ class UsuarioServiceTest {
     }
 
     @Test
+    @DisplayName("Teste editar senha atual invalida")
     public void testEditarSenhaSenhaAtualInvalida() {
         // Arrange
         Long usuarioId = 1L;
@@ -252,6 +257,7 @@ class UsuarioServiceTest {
     }
 
     @Test
+    @DisplayName("Teste editar senha com nova senha invalida")
     public void testEditarSenhaNovaSenhaInvalida() {
         // Arrange
         Long usuarioId = 1L;

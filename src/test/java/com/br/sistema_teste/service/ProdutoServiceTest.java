@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,9 +37,10 @@ class ProdutoServiceTest {
 
 
     @Test
+    @DisplayName("Teste salvar produto")
     public void teste_salvar_produto(){
         ProdutoCreateDto createDto= new ProdutoCreateDto("uva","uva","21354",5.99);
-        Produtos produtos=new Produtos(1L,"uva","uva","21354",5.99);
+        Produtos produtos=new Produtos(1L,"uva","uva","21354",new BigDecimal("5.99"));
         ProdutoResponseDto responseDto=new ProdutoResponseDto(1L,"uva","uva","21354",5.99);
         assertNotNull(createDto);
         when(produtoRepository.save(any(Produtos.class))).thenReturn(produtos);
@@ -50,8 +52,9 @@ class ProdutoServiceTest {
         assertEquals(responseDto.getPreco(), resultado.getPreco());
     }
     @Test
+    @DisplayName("Teste buscar produto por id")
     public void testar_produto_por_Id(){
-        Produtos produtos=new Produtos(1L,"uva","uva","21354",5.99);
+        Produtos produtos=new Produtos(1L,"uva","uva","21354",new BigDecimal("5.99"));
         ProdutoResponseDto responseDto=new ProdutoResponseDto(1L,"uva","uva","21354",5.99);
         when(produtoRepository.findById(1L)).thenReturn(Optional.of(produtos));
         ProdutoResponseDto resultado=produtoService.buscarProId(1L);
@@ -64,6 +67,7 @@ class ProdutoServiceTest {
 
     }
         @Test
+        @DisplayName("Teste busca por produto por id nao encontrado")
     void testBuscarProIdNotFound() {
         Long id = 1L;
 
@@ -76,8 +80,8 @@ class ProdutoServiceTest {
     public void teste_buscar_todos_produtos() {
 
         List<Produtos> produtos = Arrays.asList(
-                new Produtos(1L, "uva", "uva", "31254", 5.99),
-                new Produtos(2L, "pera", "pera", "31254", 6.99)
+                new Produtos(1L, "uva", "uva", "31254", new BigDecimal("5.99")),
+                new Produtos(2L, "pera", "pera", "31254", new BigDecimal("6.99"))
         );
 
 
@@ -107,6 +111,7 @@ class ProdutoServiceTest {
     }
 
     @Test
+    @DisplayName("Teste deletar produto")
     void testDeletar() {
         Long id = 1L;
 
@@ -119,6 +124,7 @@ class ProdutoServiceTest {
 
 
     @Test
+    @DisplayName("Teste editar  produto nao encontrado")
     void testEditarProdutoNotFound() {
         Long id = 1L;
         ProdutoCreateDto createDto = new ProdutoCreateDto();
@@ -131,13 +137,13 @@ class ProdutoServiceTest {
     @DisplayName("Teste editar produto")
     public void teste_editar_produto() {
 
-        Produtos produtosExistentes = new Produtos(1L, "uva", "uva", "31254", 5.99);
+        Produtos produtosExistentes = new Produtos(1L, "uva", "uva", "31254", new BigDecimal("5.99"));
 
         // DTO de entrada para edição
         ProdutoCreateDto createDto = new ProdutoCreateDto("uva atualizado", "uva", "31254", 5.99);
 
         // Mock do cliente atualizado a ser salvo pelo repositório
-        Produtos produtosAtualizados = new Produtos(1L, "uva atualizado", "uva", "31254", 5.99);
+        Produtos produtosAtualizados = new Produtos(1L, "uva atualizado", "uva", "31254", new BigDecimal("5.99"));
 
         // Mock do DTO de resposta esperado
         ProdutoResponseDto responseDtoEsperado = new ProdutoResponseDto(1L, "uva atualizado", "uva", "31254", 5.99);

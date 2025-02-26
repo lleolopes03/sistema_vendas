@@ -82,4 +82,5 @@ public class VendaService {
     public List<Venda> consultarTodasVendas() {
         return vendaRepository.findAll();
     }
+
 }

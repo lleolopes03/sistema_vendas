@@ -24,7 +24,7 @@ public class FuncionarioService {
     }
     public FuncionarioResponseDto buscarPorId(Long id){
         Funcionario funcionario=funcionarioRepository.findById(id).orElseThrow(
-                ()->new BusinessException(String.format("Funcionario com id: %s não encontrado"+id))
+                ()->new BusinessException(String.format("Funcionario com id: %s não encontrado",id))
         );
                 return FuncionarioMapper.toDto(funcionario);
     }
