@@ -1,0 +1,112 @@
+<header>
+  <h1>Sistema de Vendas</h1>
+
+  <!-- Exibe o nome do usuário se estiver logado -->
+  <div *ngIf="username; else notLoggedIn">
+    <span>Bem-vindo, {{ username }}!</span>
+    <button (click)="logout()">Sair</button>
+  </div>
+
+  <!-- Exibe o botão de login se ninguém estiver logado -->
+  <ng-template #notLoggedIn>
+    <div>
+      <button (click)="openLogin()">Login</button>
+    </div>
+  </ng-template>
+</header>
+
+
+
+<section>
+  <div class="modal-login">
+    <div class="modal-content">
+      <h2>Login</h2>
+      <form (ngSubmit)="onLogin()">
+        <label for="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Digite seu username"
+          [(ngModel)]="username"
+          required
+        />
+
+        <label for="password">Senha:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Digite sua senha"
+          [(ngModel)]="password"
+          required
+        />
+
+        <button type="submit">Entrar</button>
+        <!-- Exibe a mensagem de erro se houver -->
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+      </form>
+      <button class="close-modal" (click)="closeLogin()">Fechar</button>
+    </div>
+  </div>
+
+  <!-- Menu do Funcionario -->
+  <div class="menu">
+    <button class="menu-button">Funcionario</button>
+    <div class="menu-dropdown">
+      <button [routerLink]="['/funcionarios/cadastro']">Cadastro</button>
+      <button [routerLink]="['/funcionarios/editar']">Editar</button>
+      <button [routerLink]="['/funcionarios/listar']">Lista</button>
+    </div>
+  </div>
+
+  <!-- Menu do Cliente -->
+  <div class="menu">
+    <button class="menu-button">Cliente</button>
+    <div class="menu-dropdown">
+      <button [routerLink]="['/clientes/cadastro']">Cadastro</button>
+      <button [routerLink]="['/clientes/editar']">Editar</button>
+      <button [routerLink]="['/clientes/lista']">Lista</button>
+    </div>
+  </div>
+
+  <!-- Menu do Produto -->
+  <div class="menu">
+    <button class="menu-button">Produto</button>
+    <div class="menu-dropdown">
+      <button [routerLink]="['/produtos/cadastro']">Cadastro</button>
+      <button [routerLink]="['/produtos/editar']">Editar</button>
+      <button [routerLink]="['/produtos/lista']">Lista</button>
+    </div>
+  </div>
+
+  <!-- Menu de Venda -->
+  <div class="menu">
+    <button class="menu-button">Venda</button>
+    <div class="menu-dropdown">
+      <button [routerLink]="['/vendas/realizar']">Realizar venda</button>
+      <button [routerLink]="['/vendas/lista']">Lista de vendas</button>
+    </div>
+  </div>
+
+  <!-- Menu de Relatorios -->
+  <div class="menu">
+    <button class="menu-button">Relatorios</button>
+    <div class="menu-dropdown">
+      <button [routerLink]="['/relatorios/funcionarios']">Funcionarios</button>
+      <button [routerLink]="['/relatorios/clientes']">Clientes</button>
+      <button [routerLink]="['/relatorios/produtos']">Produtos</button>
+      <button [routerLink]="['/relatorios/vendas']">Vendas</button>
+    </div>
+  </div>
+    <!-- Menu do Usuarios -->
+    <div class="menu">
+      <button class="menu-button">Usuarios</button>
+      <div class="menu-dropdown">
+        <button [routerLink]="['/usuarios/cadastro']">Cadastro</button>
+        <button [routerLink]="['/usuarios/editar']">Editar</button>
+        <button [routerLink]="['/usuarios/listar']">Lista</button>
+      </div>
+    </div>
+</section>
+
