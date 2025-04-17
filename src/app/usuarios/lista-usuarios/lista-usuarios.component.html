@@ -1,1 +1,36 @@
-<p>lista-usuarios works!</p>
+<div class="container">
+  <!-- Botão para voltar à homepage -->
+  <button class="btn-back" (click)="voltarParaHomepage()">Voltar para Homepage</button>
+
+  <!-- Campo de pesquisa -->
+  <input
+    type="text"
+    class="search-bar"
+    placeholder="Digite para buscar usuário"
+    [(ngModel)]="pesquisaTermo"
+    (input)="filtrarUsuarios()"
+  />
+
+  <!-- Lista de usuários -->
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Cargo</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usuariosFiltrados">
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role.replace('ROLE_', '') }}</td>
+        <td class="actions">
+          <button class="btn-action edit" (click)="abrirModal(user.id)">Editar Senha</button>
+          <button class="btn-action delete" (click)="deletarUsuario(user.id)">Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
