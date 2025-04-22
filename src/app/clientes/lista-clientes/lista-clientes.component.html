@@ -1,0 +1,30 @@
+<button class="btn-back" (click)="voltarParaHomepage()">Página Inicial</button><br>
+<input type="text" [(ngModel)]="filtroNome" (input)="filtrarClientes()" placeholder="Buscar cliente" class="input-filtro">
+
+<table class="user-table">
+
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Idade</th>
+      <th>CPF</th>
+      <th *ngIf="userRole === 'ADMIN'">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of clientesFiltrados">
+      <td>{{ cliente.nome }}</td>
+      <td>{{ cliente.email }}</td>
+      <td>{{ cliente.idade }}</td>
+      <td>{{ cliente.cpf }}</td>
+      <td *ngIf="userRole === 'ADMIN'" class="actions"> <!-- Exibe ações somente para admins -->
+        <button class="btn-action edit" [routerLink]="['/clientes/cadastro', cliente.id]">
+          Editar
+        </button>
+        <button class="btn-action delete" (click)="deletarCliente(cliente.id)">Excluir</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

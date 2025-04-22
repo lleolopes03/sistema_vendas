@@ -18,6 +18,7 @@ export class HomepageComponent {
   password: string | null = null;
   errorMessage: string = '';
 
+
   constructor(private authService: AuthService, private router: Router) {}
 
   openLogin() {

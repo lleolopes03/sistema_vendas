@@ -1,0 +1,18 @@
+<form (ngSubmit)="salvarCliente()">
+  <label>Nome:</label>
+  <input type="text" [(ngModel)]="cliente.nome" name="nome" required><br>
+
+  <label>Email:</label>
+  <input type="email" [(ngModel)]="cliente.email" name="email" required><br>
+
+  <label>Idade:</label>
+  <input type="number" [(ngModel)]="cliente.idade" name="idade" required><br>
+
+  <label>CPF:</label>
+  <input type="text" [(ngModel)]="cliente.cpf" name="cpf" required [disabled]="editando"><br>
+
+  <div class="form-actions">
+    <button type="submit" class="btn save">{{ editando ? 'Salvar Alterações' : 'Cadastrar' }}</button>
+    <button type="button" class="btn cancel" (click)="cancelar()">Cancelar</button>
+  </div>
+</form>

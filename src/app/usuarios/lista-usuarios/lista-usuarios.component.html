@@ -1,6 +1,6 @@
 <div class="container">
   <!-- Botão para voltar à homepage -->
-  <button class="btn-back" (click)="voltarParaHomepage()">Voltar para Homepage</button>
+  <button class="btn-back" (click)="voltarParaHomepage()">Página Inicial</button>
 
   <!-- Campo de pesquisa -->
   <input
@@ -28,9 +28,9 @@
         <td>{{ user.role.replace('ROLE_', '') }}</td>
         <td class="actions">
           <button class="btn-action edit" (click)="abrirModal(user.id)">Editar Senha</button>
-          <button *ngIf="userRole === 'ADMIN'" class="btn-action delete" (click)="deletarUsuario(user.id)">
-            Deletar
-          </button>
+          <button [hidden]="userRole !== 'ADMIN'" class="btn-action delete" (click)="deletarUsuario(user.id)">
+  Deletar
+</button>
         </td>
       </tr>
     </tbody>
