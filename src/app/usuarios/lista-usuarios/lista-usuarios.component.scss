@@ -103,7 +103,9 @@
 
 .modal-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Centraliza os botões */
+  gap: 15px; /* Adiciona um pequeno espaço entre eles */
+  margin-top: 15px;
 }
 .search-bar {
   width: 100%;
@@ -112,4 +114,48 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 16px;
+}
+
+
+
+
+
+
+.modal-content h2 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+
+
+.btn-action.save {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-action.save:hover {
+  background-color: #45a049;
+}
+
+.btn-action.cancel {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.btn-action.cancel:hover {
+  background-color: #c62828;
 }

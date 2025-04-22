@@ -8,7 +8,7 @@
     class="search-bar"
     placeholder="Digite para buscar usuário"
     [(ngModel)]="pesquisaTermo"
-    (input)="filtrarUsuarios()"
+
   />
 
   <!-- Lista de usuários -->
@@ -28,9 +28,30 @@
         <td>{{ user.role.replace('ROLE_', '') }}</td>
         <td class="actions">
           <button class="btn-action edit" (click)="abrirModal(user.id)">Editar Senha</button>
-          <button class="btn-action delete" (click)="deletarUsuario(user.id)">Deletar</button>
+          <button *ngIf="userRole === 'ADMIN'" class="btn-action delete" (click)="deletarUsuario(user.id)">
+            Deletar
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
+<div *ngIf="mostrarModal" class="modal">
+  <div class="modal-content">
+    <h2>Editar Senha</h2>
+
+    <label>Senha Atual:</label>
+    <input type="password" [(ngModel)]="senhaAtual"><br>
+
+    <label>Nova Senha:</label>
+    <input type="password" [(ngModel)]="novaSenha"><br>
+
+    <label>Confirmar Nova Senha:</label>
+    <input type="password" [(ngModel)]="confirmaSenha">
+
+    <div class="modal-actions">
+      <button class="btn-action save" (click)="confirmarEdicaoSenha()">Salvar</button>
+      <button class="btn-action cancel" (click)="fecharModal()">Cancelar</button>
+    </div>
+  </div>
 </div>

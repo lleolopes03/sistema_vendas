@@ -20,15 +20,27 @@ export class AuthService {
   saveToken(token: string): void {
     localStorage.setItem('token', token);
 
-    // Decodifica o payload do token JWT
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    console.log('Payload JWT:', payload); // Log para depuração
+    try {
+      // Decodifica o payload do token JWT
+      const payload = JSON.parse(atob(token.split('.')[1]));
 
-    if (payload.sub) { // Usa sub como identificador
-      localStorage.setItem('username', payload.sub); // Salva o sub no localStorage como username
-      console.log('Username salvo no localStorage:', payload.sub);
-    } else {
-      console.error('O campo "sub" está ausente no token JWT.');
+      console.log('Payload JWT:', payload); // Log para depuração
+
+      if (payload.sub) {
+        localStorage.setItem('username', payload.sub);
+      } else {
+        console.error('O campo "sub" está ausente no token JWT.');
+      }
+
+      if (payload.id) {
+        localStorage.setItem('userId', payload.id.toString()); // Salva o ID
+      }
+
+      if (payload.role) {
+        localStorage.setItem('userRole', payload.role); // Salva o papel do usuário
+      }
+    } catch (error) {
+      console.error('Erro ao decodificar o JWT:', error);
     }
   }
 

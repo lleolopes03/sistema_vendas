@@ -23,6 +23,7 @@ export class ListaUsuariosComponent {
   confirmaSenha: string = '';
   isAdmin: boolean = false; // Propriedade para verificar se o usuário é admin
   userId: number | null = null; // ID do usuário logado
+  userRole: string | null = localStorage.getItem('userRole');
 
 
 
@@ -118,6 +119,7 @@ export class ListaUsuariosComponent {
   voltarParaHomepage(): void {
     this.router.navigate(['/']); // Altere a rota conforme sua configuração
   }
+
 
 
 }
