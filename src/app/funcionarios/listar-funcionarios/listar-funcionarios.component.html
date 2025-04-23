@@ -1,1 +1,29 @@
-<p>listar-funcionarios works!</p>
+<button class="btn-back" (click)="voltarParaHomepage()">Página Inicial</button><br>
+<input type="text" [(ngModel)]="filtroNome" (input)="filtrarFuncionarios()" placeholder="Buscar cliente" class="input-filtro">
+
+<table class="user-table">
+
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Telefone</th>
+      <th *ngIf="userRole === 'ADMIN'">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let funcionario of funcionariosFiltrados">
+      <td>{{ funcionario.nome }}</td>
+      <td>{{ funcionario.email }}</td>
+      <td>{{ funcionario.telefone }}</td>
+      <td *ngIf="userRole === 'ADMIN'" class="actions"> <!-- Exibe ações somente para admins -->
+        <button class="btn-action edit" [routerLink]="['/funcionarios/cadastro', funcionario.id]">
+          Editar
+        </button>
+        <button class="btn-action delete" (click)="deletarFuncionario(funcionario.id)">Excluir</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+

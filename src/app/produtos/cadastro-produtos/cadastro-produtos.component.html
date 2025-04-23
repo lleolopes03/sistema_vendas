@@ -1,0 +1,20 @@
+<form (ngSubmit)="salvarProduto()">
+  <label>Nome:</label>
+  <input type="text" [(ngModel)]="produto.nome" name="nome" required><br>
+
+  <label>Produto:</label>
+  <input type="text" [(ngModel)]="produto.descricao" name="produto" required><br>
+
+  <label>ncm:</label>
+  <input type="text" [(ngModel)]="produto.ncm" name="ncm" required><br>
+
+  <label>Preço:</label>
+  <input type="number" [(ngModel)]="produto.preco" name="preco" required><br>
+
+  <div class="form-actions">
+    <button type="submit" class="btn save">{{ editando ? 'Salvar Alterações' : 'Cadastrar' }}</button>
+    <button type="button" class="btn cancel" (click)="cancelar()">Cancelar</button>
+  </div>
+</form>
+
+

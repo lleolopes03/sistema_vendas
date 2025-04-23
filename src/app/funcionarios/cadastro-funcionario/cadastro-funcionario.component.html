@@ -1,1 +1,16 @@
-<p>cadastro-funcionario works!</p>
+<form (ngSubmit)="salvarFuncionario()">
+  <label>Nome:</label>
+  <input type="text" [(ngModel)]="funcionario.nome" name="nome" required><br>
+
+  <label>Email:</label>
+  <input type="email" [(ngModel)]="funcionario.email" name="email" required><br>
+
+  <label>Telefone:</label>
+  <input type="text" [(ngModel)]="funcionario.telefone" name="telefone" required><br>
+
+  <div class="form-actions">
+    <button type="submit" class="btn save">{{ editando ? 'Salvar Alterações' : 'Cadastrar' }}</button>
+    <button type="button" class="btn cancel" (click)="cancelar()">Cancelar</button>
+  </div>
+</form>
+
