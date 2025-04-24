@@ -1,0 +1,31 @@
+<button class="btn-back" (click)="voltarParaHomepage()">Página Inicial</button><br>
+<input type="text" [(ngModel)]="filtroBusca" placeholder="Buscar venda..." />
+
+<table>
+  <thead>
+    <tr>
+      <th>ID da Venda</th>
+      <th>Funcionário</th>
+      <th>Cliente</th>
+      <th>Produtos</th>
+      <th>Total</th>
+      <th>Data e Hora</th> <!-- Coluna sem referência ao objeto "venda" -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let venda of vendasFiltradas">
+      <td>{{ venda.id }}</td>
+      <td>{{ venda.funcionarioNome || 'Não identificado' }}</td>
+      <td>{{ venda.clienteNome || 'Não identificado' }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let produto of venda.produtos">
+            {{ produto.nome || 'Produto não encontrado' }} ({{ produto.quantidade || 0 }} unidades)
+          </li>
+        </ul>
+      </td>
+      <td>R$ {{ venda.total ? venda.total.toFixed(2) : '0.00' }}</td>
+      <td>{{ venda.dataHora | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+    </tr>
+  </tbody>
+</table>

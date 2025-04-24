@@ -1,0 +1,62 @@
+<form (submit)="realizarVenda()">
+
+  <!-- Funcionário ID -->
+  <label for="funcionario">Funcionário ID:</label>
+  <input type="number" [(ngModel)]="vendaRequest.funcionarioId" name="funcionario"
+    (input)="buscarFuncionario()" (keydown.enter)="$event.preventDefault(); moverParaProximoCampo('cliente')" required />
+  <p *ngIf="funcionarioNome">Nome: {{ funcionarioNome }}</p>
+
+  <!-- Cliente ID -->
+  <label for="cliente">Cliente ID:</label>
+  <input type="number" [(ngModel)]="vendaRequest.clienteId" name="cliente"
+    (input)="buscarCliente()" (keydown.enter)="$event.preventDefault(); moverParaProximoCampo('produto')" required />
+  <p *ngIf="clienteNome">Nome: {{ clienteNome }}</p>
+
+  <!-- Produto ID -->
+  <label for="produtos">Produto ID:</label>
+  <input type="number" #produtoInput name="produto" placeholder="ID do produto"
+    (keydown.enter)="$event.preventDefault(); moverParaProximoCampo('quantidade')" />
+
+  <!-- Quantidade do Produto -->
+  <input type="number" [(ngModel)]="novaQuantidade" name="quantidade" placeholder="Quantidade"
+    (keydown.enter)="$event.preventDefault(); adicionarProduto(produtoInput.value, novaQuantidade); moverParaProximoCampo('botaoVenda')" min="1" />
+
+  <button type="button" (click)="adicionarProduto(produtoInput.value, novaQuantidade)">Adicionar Produto</button>
+
+  <!-- Lista de Produtos Adicionados -->
+  <table>
+    <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Preço Unitário</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtos; let i = index">
+        <td>{{ produto.nome }}</td>
+        <td>
+          <input type="number" [(ngModel)]="vendaRequest.quantidades[i]" name="quantidade{{i}}"
+            (input)="calcularTotal()" min="1" />
+        </td>
+        <td>R$ {{ produto.preco }}</td>
+        <td>R$ {{ produto.preco * (vendaRequest.quantidades[i] ? +vendaRequest.quantidades[i] : 1) }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Total da venda: R$ {{ total }}</strong></p>
+
+  <label for="valorPago">Valor Pago:</label>
+<input type="number" [(ngModel)]="valorPago" name="valorPago"
+  (input)="calcularTroco()" min="0" step="0.01" (keydown.enter)="$event.preventDefault(); moverParaProximoCampo('botaoVenda')" />
+
+<!-- Exibir o Troco -->
+<p *ngIf="troco !== null"><strong>Troco: R$ {{ troco.toFixed(2) }}</strong></p>
+
+  <button type="submit" name="botaoVenda" id="botaoVenda">Realizar Venda</button>
+  <!-- Botões para nova venda e voltar -->
+  <button type="button" (click)="voltarParaHomepage()">Voltar à Página Inicial</button>
+
+</form>

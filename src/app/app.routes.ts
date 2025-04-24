@@ -4,6 +4,7 @@ import { funcionariosRoutes } from './funcionarios/funcionarios.routes';
 import { usuariosRoutes } from './usuarios/usuarios.routes';
 import { clientesRoutes } from './clientes/clientes.routes';
 import { produtosRoutes } from './produtos/produtos.routes';
+import { vendaRoutes } from './vendas/vendas.routes';
 
 
 export const routes: Routes = [
@@ -11,7 +12,8 @@ export const routes: Routes = [
     ...funcionariosRoutes,
     ...usuariosRoutes,
     ...clientesRoutes,
-    ...produtosRoutes
+    ...produtosRoutes,
+    ...vendaRoutes
 
 
 ];
