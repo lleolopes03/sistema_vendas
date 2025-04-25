@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Vendas } from '../vendas/vendas';
-import { Clientes } from '../clientes/clientes';
+import { Vendas } from '../vendas/model/vendas';
+import { Clientes } from '../clientes/model/clientes';
 import { Funcionarios } from '../funcionarios/model/funcionarios';
 import { Produtos } from '../produtos/model/produtos';
 
