@@ -6,13 +6,24 @@ import com.br.sistema_teste.dto.ProdutoResponseDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProdutoMapper {
-    public static Produtos toProduto(ProdutoCreateDto createDto){
-        return new ModelMapper().map(createDto, Produtos.class);
+    public static Produtos toProduto(ProdutoCreateDto createDto) {
+        ModelMapper mapper = new ModelMapper();
+        Produtos produto = mapper.map(createDto, Produtos.class);
+
+        // 🔥 Converte preco de String para BigDecimal, lidando com ',' e '.'
+        if (createDto.getPreco() != null) { // ✅ Correto: Chamando o método da instância
+            String precoString = createDto.getPreco().toString().replace(",", ".");
+            produto.setPreco(new BigDecimal(precoString));
+        }
+
+        return produto;
     }
+
     public static ProdutoResponseDto toDto(Produtos produtos){
         PropertyMap<Produtos,ProdutoResponseDto>props=new PropertyMap<Produtos, ProdutoResponseDto>() {
             @Override

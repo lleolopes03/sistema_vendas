@@ -1,9 +1,13 @@
 package com.br.sistema_teste.dto;
 
+import com.br.sistema_teste.domain.Usuario;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+
 
 public class UsuarioCreateDto {
     @NotBlank
@@ -15,15 +19,18 @@ public class UsuarioCreateDto {
     private int age;
     @NotBlank
     private String password;
+    @NotNull(message = "O campo role não pode ser nulo")
+    private Usuario.Role role;
 
     public UsuarioCreateDto() {
     }
 
-    public UsuarioCreateDto(String username, String email, int age, String password) {
+    public UsuarioCreateDto(String username, String email, int age, String password, Usuario.Role role) {
         this.username = username;
         this.email = email;
         this.age = age;
         this.password = password;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -58,6 +65,14 @@ public class UsuarioCreateDto {
         this.password = password;
     }
 
+    public Usuario.Role getRole() {
+        return role;
+    }
+
+    public void setRole(Usuario.Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "UsuarioCreateDto{" +
@@ -65,6 +80,7 @@ public class UsuarioCreateDto {
                 ", email='" + email + '\'' +
                 ", age=" + age +
                 ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

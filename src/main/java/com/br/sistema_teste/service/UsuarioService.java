@@ -23,16 +23,22 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UsuarioResponseDto salvar(UsuarioCreateDto createDto){
-        Usuario usuario=UsuarioMapper.toUsuario(createDto);
+    public UsuarioResponseDto salvar(UsuarioCreateDto createDto) {
+        Usuario usuario = UsuarioMapper.toUsuario(createDto);
+
         usuario.setPassword(passwordEncoder.encode(createDto.getPassword()));
-        if (createDto.getAge()>17) {
-            Usuario usuarioSalvar = usuarioRepository.save(usuario);
-            return UsuarioMapper.toDto(usuarioSalvar);
-        }else {
-            throw new BusinessException("Idade minima para cadastro 18 anos");
+
+        // Definindo o role a partir do DTO, se fornecido
+        if (createDto.getRole() != null) {
+            usuario.setRole(createDto.getRole());
         }
 
+        if (createDto.getAge() > 17) {
+            Usuario usuarioSalvar = usuarioRepository.save(usuario);
+            return UsuarioMapper.toDto(usuarioSalvar);
+        } else {
+            throw new BusinessException("Idade mínima para cadastro é 18 anos");
+        }
     }
     public UsuarioResponseDto buscarPorId(Long id){
         Usuario usuario=usuarioRepository.findById(id).orElseThrow(
@@ -73,6 +79,11 @@ public class UsuarioService {
     @Transactional
     public Usuario.Role buscarRolePorUsername(String username) {
         return usuarioRepository.findRoleByUsername(username);
+    }
+    public Long buscarIdPorUsername(String username) {
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado: " + username));
+        return usuario.getId();
     }
 
 }

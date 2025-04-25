@@ -1,15 +1,17 @@
 package com.br.sistema_teste.dto;
 
+import java.math.BigDecimal;
+
 public class ProdutoCreateDto {
     private String nome;
     private String descricao;
     private String ncm;
-    private double preco;
+    private BigDecimal preco;
 
     public ProdutoCreateDto() {
     }
 
-    public ProdutoCreateDto(String nome, String descricao, String ncm, double preco) {
+    public ProdutoCreateDto(String nome, String descricao, String ncm, BigDecimal preco) {
         this.nome = nome;
         this.descricao = descricao;
         this.ncm = ncm;
@@ -40,17 +42,17 @@ public class ProdutoCreateDto {
         this.ncm = ncm;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 
     @Override
     public String toString() {
-        return "ProdutoCreateRepository{" +
+        return "ProdutoCreateDto{" +
                 "nome='" + nome + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", ncm='" + ncm + '\'' +

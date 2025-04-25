@@ -1,16 +1,18 @@
 package com.br.sistema_teste.dto;
 
+import java.math.BigDecimal;
+
 public class ProdutoResponseDto {
     private Long id;
     private String nome;
     private String descricao;
     private String ncm;
-    private double preco;
+    private BigDecimal preco;
 
     public ProdutoResponseDto() {
     }
 
-    public ProdutoResponseDto(Long id, String nome, String descricao, String ncm, double preco) {
+    public ProdutoResponseDto(Long id, String nome, String descricao, String ncm, BigDecimal preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -50,11 +52,11 @@ public class ProdutoResponseDto {
         this.ncm = ncm;
     }
 
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(BigDecimal preco) {
         this.preco = preco;
     }
 

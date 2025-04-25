@@ -44,14 +44,6 @@ public class Produtos {
         this.nome = nome;
     }
 
-    public String getNcm() {
-        return ncm;
-    }
-
-    public void setNcm(String ncm) {
-        this.ncm = ncm;
-    }
-
     public String getDescricao() {
         return descricao;
     }
@@ -60,12 +52,31 @@ public class Produtos {
         this.descricao = descricao;
     }
 
+    public String getNcm() {
+        return ncm;
+    }
+
+    public void setNcm(String ncm) {
+        this.ncm = ncm;
+    }
+
     public BigDecimal getPreco() {
         return preco;
     }
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    @Override
+    public String toString() {
+        return "Produtos{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", ncm='" + ncm + '\'' +
+                ", preco=" + preco +
+                '}';
     }
 
     @Override

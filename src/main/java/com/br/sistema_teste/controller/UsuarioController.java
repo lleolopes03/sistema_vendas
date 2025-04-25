@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,12 +54,25 @@ public class UsuarioController {
             @ApiResponse(responseCode = "200",description = "Lista de clientes ok")
     })
 
-   @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<UsuarioResponseDto>>findAll(){
-       List<UsuarioResponseDto>responseDtos=usuarioService.buscarTodos();
-       return ResponseEntity.ok(responseDtos);
-   }
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN') OR hasRole('CAIXA')")
+    public ResponseEntity<List<UsuarioResponseDto>> findAll(Authentication authentication) {
+        List<UsuarioResponseDto> responseDtos;
+
+        if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            // ADMIN vê todos os usuários
+            responseDtos = usuarioService.buscarTodos();
+        } else {
+            // CAIXA vê apenas seu próprio cadastro
+            String username = authentication.getName(); // Obtém o username (pode ser o ID)
+            Long userId = usuarioService.buscarIdPorUsername(username); // Método para converter username em ID
+
+            UsuarioResponseDto usuario = usuarioService.buscarPorId(userId);
+            responseDtos = List.of(usuario);
+        }
+
+        return ResponseEntity.ok(responseDtos);
+    }
     @Operation(summary = "Deletar usuario",description = "Deletar usuario por id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",description = "Deletado com sucesso")
@@ -73,10 +89,10 @@ public class UsuarioController {
             @ApiResponse(responseCode = "204",description = "Senha alterado com sucesso")
     })
 
-   @PutMapping("/{id}/password")
-    @PreAuthorize("hasRole('ADMIN','CAIXA')AND(#id==authentication.principal.id)")
-    public ResponseEntity<Void>editarSenha(@PathVariable Long id, @RequestBody UsuarioSenhaDto senhaDto){
-       usuarioService.editarSenha(id,senhaDto);
-       return ResponseEntity.noContent().build();
-   }
+    @PutMapping("/{id}/password")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CAIXA') and #id == authentication.principal.id")
+    public ResponseEntity<Void> editarSenha(@PathVariable Long id, @RequestBody UsuarioSenhaDto senhaDto) {
+        usuarioService.editarSenha(id, senhaDto);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -36,7 +36,7 @@ public class FuncionarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Busca do funcionario  com sucesso")
     })
-    @GetMapping
+    @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') OR hasRole('CAIXA')")
     public ResponseEntity<FuncionarioResponseDto>buscarPorId(@PathVariable Long id){
         FuncionarioResponseDto responseDto=funcionarioService.buscarPorId(id);
@@ -46,7 +46,7 @@ public class FuncionarioController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Lista de funcionarios ok")
     })
-    @GetMapping("/{id}")
+    @GetMapping
     @PreAuthorize("hasRole('ADMIN') OR hasRole('CAIXA')")
     public ResponseEntity<List<FuncionarioResponseDto>>listarTodos(){
         List<FuncionarioResponseDto>responseDtos=funcionarioService.toListDto();

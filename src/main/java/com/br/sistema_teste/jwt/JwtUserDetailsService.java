@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class JwtUserDetailsService implements UserDetailsService {
 
     private final UsuarioService usuarioService;
+
     @Autowired
     public JwtUserDetailsService(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
@@ -26,7 +27,13 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     public JwtToken getTokenAuthenticated(String username) {
-        Usuario.Role role = usuarioService.buscarRolePorUsername(username);
-        return JwtUtils.createToken(username, role.name().substring("ROLE_".length()));
+        // Recupera o ID e o role do usuário
+        Usuario usuario = usuarioService.buscarPorUsername(username);
+        Usuario.Role role = usuario.getRole(); // Obtém a role diretamente do objeto usuário
+        Long userId = usuario.getId(); // Obtém o ID do usuário
+
+        // Gera o token com username, role e userId
+        return JwtUtils.createToken(username, role.name().substring("ROLE_".length()), userId);
     }
 }
+
