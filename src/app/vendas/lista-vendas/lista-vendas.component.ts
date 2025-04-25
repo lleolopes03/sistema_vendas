@@ -3,6 +3,7 @@ import { VendaService } from '../../services/venda.service';
 import { CommonModule } from '@angular/common';
 import { Router,RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ProdutoVendido } from '../model/vendas';
 
 
 
@@ -34,7 +35,7 @@ export class ListaVendasComponent implements OnInit {
           dataHora: venda.data ? new Date(venda.data) : null, // Convertendo a string para Date
           funcionarioNome: venda.funcionario?.nome || 'Não identificado',
           clienteNome: venda.cliente?.nome || 'Não identificado',
-          produtos: venda.vendaProdutos.map(item => ({
+          produtos: venda.vendaProdutos.map((item: ProdutoVendido) => ({
             nome: item.produto?.nome || 'Produto não encontrado',
             quantidade: item.quantidade
           })) || [],
